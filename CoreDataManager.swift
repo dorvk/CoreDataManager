@@ -45,7 +45,6 @@ final class CoreDataManager<T: NSManagedObject> {
         }
     }
     
-    
     func create(closure: (T) -> Void) {
         let description = NSEntityDescription.entity(forEntityName: containerName, in: context)!
         let entity = T(entity: description, insertInto: context)
