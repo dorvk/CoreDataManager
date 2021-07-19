@@ -17,19 +17,25 @@ Functions
 
 - `fetchAll()`
 
-Fetches all entities and returns as T
+Fetches all entities and returns as T.
 
     var items: [T] = coreDataManager.fetchAll()
     
 <br />
 
-- `create()`
+ `create()`
 
-Creates an entity and returns it as type T
+Creates an entity and returns it as type T.
 
     let entity = coreDataManager.create()
         
-Do not forget to update attributes after creation of an entity.
+- `create(closure: (T) -> Void)`
+
+Creates an entity with closure to update it's attributes.
+
+    coreDataManager.create() { 
+        $0.name = "Doruk"
+    }
 
 <br />
 
