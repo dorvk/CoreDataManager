@@ -3,7 +3,7 @@
 
 A manager for the basic use of CoreData 
 
-How to use it? 
+How to use
 ------------
 
 Copy the file `CoreDataManager.swift` into your project.
