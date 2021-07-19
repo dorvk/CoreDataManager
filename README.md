@@ -33,18 +33,21 @@ Do not forget to update attributes after creation of an entity.
 
 <br />
 
-- `updateAttributes(entity: T, closure: (T) -> Void)`
+- `updateAttributes(of entity: T, closure: (T) -> Void)`
 
 Creates a closure where attributes of given entity can be updated.
 
-        coreDataManager.updateAttributes(entity: entity) { entity in 
-            entity.name = "Test"
-        }
+    let entity = coreDataManager.create()
+    
+    coreDataManager.updateAttributes(of: entity) { entity in
+         entity.name = "Test"
+    }
+    
 <br />
 
 - `delete(_ entity: T)`
 
 Deletes the given NSManagedObject
 
-        coreDataManager.delete(entity)
+    coreDataManager.delete(entity)
         
