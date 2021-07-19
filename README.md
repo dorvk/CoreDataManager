@@ -40,7 +40,7 @@ Creates a closure where attributes of given entity can be updated.
     let entity = coreDataManager.create()
     
     coreDataManager.updateAttributes(of: entity) { 
-         $0.name = "Steve Jobs"
+         $0.name = "Steve"
     }
     
 <br />
