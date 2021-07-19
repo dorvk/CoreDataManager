@@ -41,7 +41,7 @@ Creates an entity with closure to update it's attributes.
 
 <br />
 
-- `updateAttributes(of entity: T, closure: (T) -> Void)`
+- `update(of entity: T, closure: (T) -> Void)`
 
 Creates a closure where attributes of given entity can be updated.
 
