@@ -10,7 +10,7 @@ Copy the file `CoreDataManager.swift` into your project.
 
 Create instance from anywhere you want to use. Do not forget to implement NSManagedObject into
 
-- `let coreDataManager = CoreDataManager<T>()`
+    let coreDataManager = CoreDataManager<T>()
 
 Functions
 ------------
