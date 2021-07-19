@@ -25,7 +25,7 @@ Fetches all entities and returns as T.
 
 - `create()`
 
-Creates an entity and returns it as type T.
+Creates an entity and returns it as type T where T is NSManagedObject
 
     let entity = coreDataManager.create()
         
