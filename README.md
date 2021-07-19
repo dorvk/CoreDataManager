@@ -41,13 +41,13 @@ Creates an entity with closure to update it's attributes.
 
 <br />
 
-- `update(of entity: T, closure: (T) -> Void)`
+- `update(_ entity: T, closure: (T) -> Void)`
 
 Creates a closure where attributes of given entity can be updated.
 
     let entity = coreDataManager.create()
     
-    coreDataManager.update(of: entity) { 
+    coreDataManager.update(entity) { 
         $0.name = "Doruk"
     }
     
