@@ -1,4 +1,4 @@
-# CoreDataManager-Swift
+# CoreDataManager for Swift
 
 A manager for the basic use of CoreData 
 
