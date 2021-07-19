@@ -23,7 +23,7 @@ Fetches all entities and returns as T.
     
 <br />
 
- `create()`
+- `create()`
 
 Creates an entity and returns it as type T.
 
