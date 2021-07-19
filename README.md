@@ -31,6 +31,8 @@ Creates an entity and returns it as type T where T is NSManagedObject
         
 - `create(closure: (T) -> Void)`
 
+<br />
+
 Creates an entity with closure to update it's attributes.
 
     coreDataManager.create() { 
