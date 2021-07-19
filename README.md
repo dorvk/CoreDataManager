@@ -28,10 +28,10 @@ Fetches all entities and returns an array of T
 Creates an entity and returns it as type T where T is NSManagedObject
 
     let entity = coreDataManager.create()
+    
+<br />
         
 - `create(closure: (T) -> Void)`
-
-<br />
 
 Creates an entity with closure to update it's attributes.
 
