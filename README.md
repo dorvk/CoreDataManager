@@ -8,7 +8,7 @@ How to use it?
 
 Copy the file `CoreDataManager.swift` into your project.
 
-Create instance from anywhere you want to use. Do not forget to implement NSManagedObject into
+Create instance from anywhere you want to use. You don't need to `import CoreData` anywhere, nor AppDelegate configurations. Just do not forget to implement NSManagedObject while initialization.
 
     let coreDataManager = CoreDataManager<T>()
 
