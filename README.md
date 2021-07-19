@@ -1,7 +1,7 @@
 # CoreDataManager-Swift
 =====================
 
-The most basic CoreData Manager in swift
+A manager for the basic use of CoreData 
 
 How to use it? 
 ------------
