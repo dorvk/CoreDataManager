@@ -51,7 +51,7 @@ final class CoreDataManager<T: NSManagedObject> {
         return entity
     }
     
-    func updateAttributes(entity: T, closure: (T) -> Void) {
+    func updateAttributes(of entity: T, closure: (T) -> Void) {
         closure(entity)
         saveContext()
     }
