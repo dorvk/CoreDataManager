@@ -17,7 +17,7 @@ Functions
 
 - `fetchAll()`
 
-Fetches all entities and returns as T.
+Fetches all entities and returns an array of T
 
     var items: [T] = coreDataManager.fetchAll()
     
