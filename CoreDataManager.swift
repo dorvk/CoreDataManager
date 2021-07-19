@@ -20,9 +20,9 @@ final class CoreDataManager<T: NSManagedObject> {
     private lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: containerName)
         container.loadPersistentStores() { description, error in
-          if let error = error as NSError? {
-            fatalError("Unresolved error \(error), \(error.userInfo)")
-          }
+            if let error = error as NSError? {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
         }
         return container
     }()
@@ -36,13 +36,12 @@ final class CoreDataManager<T: NSManagedObject> {
     // MARK: - Functions
     
     private func saveContext() {
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                let error = error as NSError
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
+        guard context.hasChanges else { return }
+        do {
+            try context.save()
+        } catch {
+            let error = error as NSError
+            fatalError("Unresolved error \(error), \(error.userInfo)")
         }
     }
     
@@ -67,6 +66,8 @@ final class CoreDataManager<T: NSManagedObject> {
             return try context.fetch(T.fetchRequest()) as! [T]
         }
         catch {
+            let error = error as NSError
+            print("Unresolved error \(error), \(error.userInfo)")
             return []
         }
     }
