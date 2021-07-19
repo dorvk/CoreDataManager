@@ -1,6 +1,6 @@
 //
 //  CoreDataManager.swift
-//  GetirTodo
+//
 //
 //  Created by Doruk Çoban on 11.07.2021.
 //
@@ -45,13 +45,21 @@ final class CoreDataManager<T: NSManagedObject> {
         }
     }
     
+    
+    func create(closure: (T) -> Void) {
+        let description = NSEntityDescription.entity(forEntityName: containerName, in: context)!
+        let entity = T(entity: description, insertInto: context)
+        closure(entity)
+        saveContext()
+    }
+    
     func create() -> T {
         let description = NSEntityDescription.entity(forEntityName: containerName, in: context)!
         let entity = T(entity: description, insertInto: context)
         return entity
     }
     
-    func updateAttributes(of entity: T, closure: (T) -> Void) {
+    func update(_ entity: T, closure: (T) -> Void) {
         closure(entity)
         saveContext()
     }
@@ -71,5 +79,4 @@ final class CoreDataManager<T: NSManagedObject> {
             return []
         }
     }
-    
 }
