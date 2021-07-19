@@ -18,6 +18,8 @@ Functions
 
 Fetches all entities and returns an array of T
 
+    let coreDataManager = CoreDataManager<T>()
+    
     var items: [T] = coreDataManager.fetchAll()
     
 <br />
@@ -26,6 +28,8 @@ Fetches all entities and returns an array of T
 
 Creates an entity and returns it as T where T is NSManagedObject
 
+    let coreDataManager = CoreDataManager<T>()
+    
     let entity = coreDataManager.create()
     
 <br />
@@ -34,6 +38,8 @@ Creates an entity and returns it as T where T is NSManagedObject
 
 Creates an entity with closure to update it's attributes.
 
+    let coreDataManager = CoreDataManager<T>()
+    
     coreDataManager.create() { 
         $0.name = "Doruk"
     }
@@ -43,6 +49,8 @@ Creates an entity with closure to update it's attributes.
 - `update(_ entity: T, closure: (T) -> Void)`
 
 Creates a closure where attributes of given entity can be updated.
+
+    let coreDataManager = CoreDataManager<T>()
 
     let entity = coreDataManager.create()
     
@@ -56,5 +64,7 @@ Creates a closure where attributes of given entity can be updated.
 
 Deletes the given NSManagedObject
 
+    let coreDataManager = CoreDataManager<T>()  
+ 
     coreDataManager.delete(entity)
         
