@@ -62,7 +62,7 @@ Creates a closure where attributes of given entity can be updated.
 
 - `delete(_ entity: T)`
 
-Deletes the given NSManagedObject
+Deletes the given NSManagedObject as T
 
     let coreDataManager = CoreDataManager<T>()  
  
