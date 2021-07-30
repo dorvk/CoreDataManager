@@ -69,8 +69,9 @@ final class CoreDataManager<T: NSManagedObject> {
     }
     
     func fetchAll() -> [T] {
+        let request = NSFetchRequest<T>(entityName: containerName)
         do {
-            return try context.fetch(T.fetchRequest()) as! [T]
+            return try context.fetch(request)
         }
         catch {
             let error = error as NSError
