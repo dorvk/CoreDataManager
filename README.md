@@ -1,13 +1,13 @@
 # CoreDataManager for Swift
 
-A manager for the basic use of CoreData 
+A manager for the `basic` use of CoreData 
 
 How to use
 ------------
 
 Copy the file `CoreDataManager.swift` into your project.
 
-You don't need to `import CoreData` anywhere, nor AppDelegate configurations. Just do not forget to implement NSManagedObject while initialization.
+You don't need to `import CoreData` anywhere, nor AppDelegate configurations. Just do not forget to implement NSManagedObject with xcdatamodel
 
 Functions
 ------------
