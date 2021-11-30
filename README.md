@@ -7,9 +7,7 @@ How to use
 
 Copy the file `CoreDataManager.swift` into your project.
 
-Create instance from anywhere you want to use. You don't need to `import CoreData` anywhere, nor AppDelegate configurations. Just do not forget to implement NSManagedObject while initialization.
-
-    let coreDataManager = CoreDataManager<T>()
+You don't need to `import CoreData` anywhere, nor AppDelegate configurations. Just do not forget to implement NSManagedObject while initialization.
 
 Functions
 ------------
@@ -18,9 +16,7 @@ Functions
 
 Fetches all entities and returns an array of T
 
-    let coreDataManager = CoreDataManager<T>()
-    
-    var items: [T] = coreDataManager.fetchAll()
+    var items: [T] = CoreDataManager.fetchAll()
     
 <br />
 
@@ -28,9 +24,7 @@ Fetches all entities and returns an array of T
 
 Creates an entity and returns it as T.
 
-    let coreDataManager = CoreDataManager<T>()
-    
-    let entity = coreDataManager.create()
+    let entity: T = CoreDataManager.create()
     
 <br />
         
@@ -38,10 +32,8 @@ Creates an entity and returns it as T.
 
 Creates an entity with closure to update it's attributes.
 
-    let coreDataManager = CoreDataManager<T>()
-    
-    coreDataManager.create() { 
-        $0.name = "Doruk"
+    CoreDataManager.create() { (entity: T) in
+        entity.name = "Doruk"
     }
 
 <br />
@@ -50,11 +42,9 @@ Creates an entity with closure to update it's attributes.
 
 Creates a closure where attributes of given entity can be updated.
 
-    let coreDataManager = CoreDataManager<T>()
-
-    let entity = coreDataManager.create()
+    let entity: T = CoreDataManager.create()
     
-    coreDataManager.update(entity) { 
+    CoreDataManager.update(entity) { 
         $0.name = "Doruk"
     }
     
@@ -64,7 +54,5 @@ Creates a closure where attributes of given entity can be updated.
 
 Deletes the given NSManagedObject as T
 
-    let coreDataManager = CoreDataManager<T>()  
- 
-    coreDataManager.delete(entity)
+    CoreDataManager.delete(entity)
         
