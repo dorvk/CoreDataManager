@@ -7,76 +7,101 @@
 
 import CoreData
 
-final class CoreDataManager<T: NSManagedObject> {
+public struct CoreDataManager {
     
-    // MARK: - Properties
-    
-    private var containerName: String
-    
-    private var context: NSManagedObjectContext {
-        persistentContainer.viewContext
+    // MARK: - Endpoints
+    static func create<T:NSManagedObject>(closure: (T) -> Void)  {
+        let container = CoreDataWorker.shared
+        let entity = container.entity
+        container.containerName = container.containerName(for: T.self)
+        closure(entity as! T)
+        container.saveContext()
     }
     
-    private lazy var persistentContainer: NSPersistentContainer = {
+    static func create<T:NSManagedObject>() -> T {
+        let container = CoreDataWorker.shared
+        let entity = container.entity
+        container.containerName = container.containerName(for: T.self)
+        return entity as! T
+    }
+    
+    static func update<T:NSManagedObject>(_ entity: T, closure: (T) -> Void) {
+        let container = CoreDataWorker.shared
+        container.containerName = container.containerName(for: T.self)
+        closure(entity)
+        container.saveContext()
+    }
+    
+    static func delete<T:NSManagedObject>(_ entity: T) {
+        let container = CoreDataWorker.shared
+        container.containerName = container.containerName(for: T.self)
+        container.deleteEntity(entity)
+    }
+    
+    static func fetchItems<T:NSManagedObject>() -> [T] {
+        let container = CoreDataWorker.shared
+        container.containerName = container.containerName(for: T.self)
+        let request = NSFetchRequest<T>(entityName: container.containerName)
+        guard let fetched = try? container.context.fetch(request) else {
+            return LogManager.log(
+                event: .warning,
+                defaultValue: [],
+                isExtension: true,
+                message: "Couldn't fetch data from container. Returning [] instead of crash...")
+        }
+        return fetched
+    }
+}
+
+fileprivate class CoreDataWorker {
+    
+    // MARK: - Shared instance
+    static let shared = CoreDataWorker()
+    
+    private init() {}
+    
+    // MARK: - Properties
+    lazy var entityDescription = NSEntityDescription.entity(forEntityName: containerName, in: context)
+    
+    lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: containerName)
-        container.loadPersistentStores() { description, error in
-            if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
+        container.loadPersistentStores() { result, error in
+            print(result.description)
+            guard let error = error else { return }
+            print(error.localizedDescription)
         }
         return container
     }()
+    
+    var containerName = String()
+    
+    // MARK: - Computed properties
+    var context: NSManagedObjectContext {
+        persistentContainer.viewContext
+    }
+    
+    var entity: NSManagedObject {
+        guard let description = entityDescription else { fatalError() }
+        return NSManagedObject(entity: description, insertInto: context)
+    }
+    
+    // MARK: - Worker methods
+    func containerName(for model: NSManagedObject.Type) -> String {
+        NSStringFromClass(model).components(separatedBy: ".").last ?? ""
+    }
 
-    // MARK: - Init
-    
-    required init() {
-        containerName = NSStringFromClass(T.self)
-    }
-    
-    // MARK: - Functions
-    
-    private func saveContext() {
-        guard context.hasChanges else { return }
-        do {
-            try context.save()
-        } catch {
-            let error = error as NSError
-            fatalError("Unresolved error \(error), \(error.userInfo)")
-        }
-    }
-    
-    func create(closure: (T) -> Void) {
-        let description = NSEntityDescription.entity(forEntityName: containerName, in: context)!
-        let entity = T(entity: description, insertInto: context)
-        closure(entity)
-        saveContext()
-    }
-    
-    func create() -> T {
-        let description = NSEntityDescription.entity(forEntityName: containerName, in: context)!
-        let entity = T(entity: description, insertInto: context)
-        return entity
-    }
-    
-    func update(_ entity: T, closure: (T) -> Void) {
-        closure(entity)
-        saveContext()
-    }
-    
-    func delete(_ entity: T) {
+    func deleteEntity(_ entity: NSManagedObject) {
         context.delete(entity)
         saveContext()
     }
     
-    func fetchAll() -> [T] {
-        let request = NSFetchRequest<T>(entityName: containerName)
+    func saveContext() {
+        guard context.hasChanges else { return }
         do {
-            return try context.fetch(request)
-        }
-        catch {
-            let error = error as NSError
-            print("Unresolved error \(error), \(error.userInfo)")
-            return []
+            try context.save()
+        } catch {
+            print("Couldn't save context, \(error.localizedDescription)")
         }
     }
 }
+
