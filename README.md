@@ -14,7 +14,7 @@ Functions
 
 - `fetchAll()`
 
-Fetches all entities and returns an array of T
+Fetches all entities and returns an array of T where T: NSManagedObject
 
     var items: [T] = CoreDataManager.fetchAll()
     
