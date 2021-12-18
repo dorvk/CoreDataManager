@@ -43,11 +43,8 @@ public struct CoreDataManager {
         container.containerName = container.containerName(for: T.self)
         let request = NSFetchRequest<T>(entityName: container.containerName)
         guard let fetched = try? container.context.fetch(request) else {
-            return LogManager.log(
-                event: .warning,
-                defaultValue: [],
-                isExtension: true,
-                message: "Couldn't fetch data from container. Returning [] instead of crash...")
+            print("Couldn't fetch data from container. Returning [] instead of crash...")
+            return []
         }
         return fetched
     }
