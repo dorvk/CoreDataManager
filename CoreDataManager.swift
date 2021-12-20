@@ -12,35 +12,35 @@ public struct CoreDataManager {
     // MARK: - Endpoints
     static func create<T:NSManagedObject>(closure: (T) -> Void)  {
         let container = CoreDataWorker.shared
+        container.setContainerName(for: T.self)
         let entity = container.entity
-        container.containerName = container.containerName(for: T.self)
         closure(entity as! T)
         container.saveContext()
     }
     
     static func create<T:NSManagedObject>() -> T {
         let container = CoreDataWorker.shared
+        container.setContainerName(for: T.self)
         let entity = container.entity
-        container.containerName = container.containerName(for: T.self)
         return entity as! T
     }
     
     static func update<T:NSManagedObject>(_ entity: T, closure: (T) -> Void) {
         let container = CoreDataWorker.shared
-        container.containerName = container.containerName(for: T.self)
+        container.setContainerName(for: T.self)
         closure(entity)
         container.saveContext()
     }
     
     static func delete<T:NSManagedObject>(_ entity: T) {
         let container = CoreDataWorker.shared
-        container.containerName = container.containerName(for: T.self)
+        container.setContainerName(for: T.self)
         container.deleteEntity(entity)
     }
     
     static func fetchItems<T:NSManagedObject>() -> [T] {
         let container = CoreDataWorker.shared
-        container.containerName = container.containerName(for: T.self)
+        container.setContainerName(for: T.self)
         let request = NSFetchRequest<T>(entityName: container.containerName)
         guard let fetched = try? container.context.fetch(request) else {
             print("Couldn't fetch data from container. Returning [] instead of crash...")
@@ -83,8 +83,8 @@ fileprivate class CoreDataWorker {
     }
     
     // MARK: - Worker methods
-    func containerName(for model: NSManagedObject.Type) -> String {
-        NSStringFromClass(model).components(separatedBy: ".").last ?? ""
+    func setContainerName(for model: NSManagedObject.Type) {
+        containerName = NSStringFromClass(model).components(separatedBy: ".").last ?? ""
     }
 
     func deleteEntity(_ entity: NSManagedObject) {
