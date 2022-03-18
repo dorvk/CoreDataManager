@@ -2,8 +2,7 @@
 
 A manager for the `basic` use of CoreData 
 
-How to install
-------------
+# How to install
 
 ## Swift Package Manager
 
