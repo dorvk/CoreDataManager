@@ -2,8 +2,16 @@
 
 A manager for the `basic` use of CoreData 
 
-How to use
+How to install
 ------------
+
+## Swift Package Manager
+
+To add Constren into your project using [Swift Package Manager](https://www.swift.org/package-manager/), add following into your Package.swift file,
+
+    dependencies: [ .package(url: "https://github.com/dorvk/Constren.git", .branch("master")) ]
+
+## Manually
 
 Copy the file `CoreDataManager.swift` into your project.
 
